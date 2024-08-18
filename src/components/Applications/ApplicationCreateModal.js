@@ -13,8 +13,18 @@ const ApplicationCreateModal = ({ closeApplicationCreateModal }) => {
         { title: '', appImg: null },
     ])
 
-    const handleFileChange = e => {
-        setApplicationFile({ appImg: e.target.files[0] })
+    const handleTitleChange = (e, index) => {
+        const { value }         = e.target
+        const newList           = [...applicationFile]
+        newList[index].title    = value
+        setApplicationFile(newList)
+    }
+
+    const handleFileChange = (e, index) => {
+        const { name, files }   = e.target
+        const newList           = [...applicationFile]
+        newList[index][name]    = files ? files[0] : e.target.value
+        setApplicationFile(newList)
     }
 
     const addApplications = () => {
@@ -27,23 +37,40 @@ const ApplicationCreateModal = ({ closeApplicationCreateModal }) => {
     }
 
     const applicationDataChange = e => {
-        const name = e.target.name
+        const name  = e.target.name
         const value = e.target.value
         setApplicationData(values => ({ ...values, [name]: value }))
     }
 
-    const submit = e => {
-        e.preventDefault()
-        let allApplicationData = {
-            ...applicationData,
-            scan_copy: applicationFile,
-        }
+    const submit = (e) => {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append('name', applicationData.name || '');
+        formData.append('mobile', applicationData.mobile || '');
+        formData.append('gender', applicationData.gender || '');
+        formData.append('email', applicationData.email || '');
+    
+        applicationFile.forEach((file, index) => {
+            if (file.appImg) {
+                formData.append(`scan_copy[${index}][appImg]`, file.appImg);
+                formData.append(`scan_copy[${index}][title]`, file.title);
+            }
+        });
+
+    
         axios
-            .post('/api/application-store', allApplicationData)
-            .then(response => {
-                console.log(response)
+            .post('/api/application-store', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
             })
-    }
+            .then((response) => {
+                closeApplicationCreateModal();
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    };
     return (
         <>
             <div
@@ -69,7 +96,9 @@ const ApplicationCreateModal = ({ closeApplicationCreateModal }) => {
                             id="formMethod"
                             action=""
                             method="POST"
-                            onSubmit={submit}>
+                            onSubmit={submit}
+                            encType='multipart/form-data'
+                            >
                             <div className="flex flex-col items-center px-6 min-h-[460px] max-h-[480px] overflow-y-auto">
                                 <div className="items-center w-full mt-8">
                                     <label
@@ -110,16 +139,20 @@ const ApplicationCreateModal = ({ closeApplicationCreateModal }) => {
                                         Gender
                                     </label>
                                     <Radio
+                                        radioId="maleInput"
                                         title="Male"
                                         name="gender"
                                         onChange={applicationDataChange}
                                         value="1"
+                                        checked={applicationData.gender == "1"}
                                     />
                                     <Radio
+                                        radioId="femaleInput"
                                         title="Female"
                                         name="gender"
                                         onChange={applicationDataChange}
                                         value="2"
+                                        checked={applicationData.gender == "2"}
                                     />
                                 </div>
 
@@ -130,7 +163,7 @@ const ApplicationCreateModal = ({ closeApplicationCreateModal }) => {
                                         Email
                                     </label>
                                     <input
-                                        type="text"
+                                        type="email"
                                         name="email"
                                         value={applicationData.email || ''}
                                         onChange={applicationDataChange}
@@ -139,7 +172,7 @@ const ApplicationCreateModal = ({ closeApplicationCreateModal }) => {
                                     />
                                 </div>
 
-                                {applicationFile.map((app, index) => (
+                                {applicationFile?.map((app, index) => (
                                     <div
                                         key={index}
                                         className="w-full mt-4 mb-6 md:mb-0">
@@ -148,20 +181,23 @@ const ApplicationCreateModal = ({ closeApplicationCreateModal }) => {
                                             htmlFor="grid-first-name">
                                             Scan Copy
                                         </label>
-                                        <div className="flex gap-2">
+                                        <div className="flex gap-2 w-full">
                                             <div className="flex flex-col gap-2">
-                                                <input
-                                                    className="appearance-none block w-full  text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                                    type="text"
-                                                    name="title"
-                                                    placeholder="Enter Scan Copy title"
-                                                />
-                                                <input
-                                                    type="file"
-                                                    name="scan_copy"
-                                                    onChange={handleFileChange}
-                                                    className="bg-whtie border border-gray-300 py-2 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
-                                                />
+                                            <input
+                                            className="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                            type="text"
+                                            name="title"
+                                            value={app.title}
+                                            onChange={(e) => handleTitleChange(e, index)}
+                                            placeholder="Enter Scan Copy title"
+                                        />
+                                        <input
+                                            type="file"
+                                            name="appImg"
+                                            accept="image/*"
+                                            onChange={(e) => handleFileChange(e, index)}
+                                            className="bg-white border border-gray-300 py-2 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
+                                        />
                                             </div>
                                             {applicationFile.length - 1 !==
                                                 index && (
@@ -177,7 +213,7 @@ const ApplicationCreateModal = ({ closeApplicationCreateModal }) => {
                                             )}
                                             {applicationFile.length - 1 ===
                                                 index && (
-                                                <div className="flex items-center">
+                                                <div className="flex items-start">
                                                     <button
                                                         onClick={
                                                             addApplications

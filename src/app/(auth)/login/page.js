@@ -66,11 +66,11 @@ const Login = () => {
                                 Email
                             </Label>
 
-                            <Input
+                            <input
                                 id="email"
                                 type="email"
                                 value={email}
-                                // className="block mt-1 w-full"
+                                className="mt-2 h-10 w-full border border-green-400 pl-4 rounded-3xl shadow-sm sm:text-sm"
                                 onChange={event => setEmail(event.target.value)}
                                 required
                                 autoFocus

@@ -1,15 +1,17 @@
-const Radio = ({ title, name, value }) => {
+const Radio = ({ radioId, title, name, value, checked, onChange }) => {
     return (
         <div className="inline-flex items-center">
             <label
                 className="relative flex items-center p-3 rounded-full cursor-pointer"
-                htmlFor="custom-style1">
+                htmlFor={radioId}>
                 <input
                     name={name}
                     type="radio"
                     value={value}
-                    className="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-full border border-gray-900/10 bg-gray-900/5 p-0 text-gray-900 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-gray-900 checked:before:bg-gray-900 hover:before:opacity-0"
-                    id="custom-style1"
+                    checked={checked}
+                    onChange={onChange}
+                    className="peer relative h-5 w-5 cursor-pointer appearance-none rounded-full border border-gray-900/10 bg-gray-900/5 p-0 text-gray-900 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-gray-900 checked:before:bg-gray-900 hover:before:opacity-0"
+                    id={radioId}
                 />
                 <span className="absolute text-gray-900 transition-opacity opacity-0 pointer-events-none top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 peer-checked:opacity-100">
                     <svg
@@ -27,7 +29,7 @@ const Radio = ({ title, name, value }) => {
             </label>
             <label
                 className="mt-px font-light text-gray-700 cursor-pointer select-none"
-                htmlFor="custom-style1">
+                htmlFor={radioId}>
                 <p className="block font-sans text-base antialiased font-normal leading-relaxed text-blue-gray-400">
                     {title}
                 </p>
