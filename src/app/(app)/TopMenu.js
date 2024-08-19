@@ -10,6 +10,7 @@ const TopMenu = ({ user }) => {
     const logoutPanel = () => {
         setLogoutSection(!logoutSection)
     }
+    
     return (
         <>
             <div className="sticky top-0 bg-white min-h-[70px] z-50 border-b border-b-gray-300 flex justify-between items-center px-5 gap-4">
@@ -48,7 +49,7 @@ const TopMenu = ({ user }) => {
                                                     fdprocessedid="9b5ml">
                                                     <div>
                                                         <p className="font-bold text-left">
-                                                            তৌহিদা ফাতেমা
+                                                        {user?.name}
                                                         </p>
                                                         <p className="text-[10px] hidden lg:block">
                                                             মাইগভ টিম, ইয়ং
@@ -107,7 +108,7 @@ const TopMenu = ({ user }) => {
                                         className="right-0 absolute shadow-lg w-[140px] p-4 translate-x-0 translate-y-[30px] bg-white">
                                         <div className="text-left flex flex-col">
                                             <Link
-                                                href=""
+                                                href="/profile"
                                                 className="w-full my-1">
                                                 Profile
                                             </Link>

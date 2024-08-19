@@ -21,7 +21,7 @@ const AppLayout = ({ children }) => {
                 <div className="flex-1">
                     <div className="min-h-screen">
                         {/*    Start of Header Section  */}
-                        <TopMenu />
+                        <TopMenu user={user}/>
                         {/*End of Header Section*/}
 
                         {/*Start of Main Content*/}
@@ -32,12 +32,6 @@ const AppLayout = ({ children }) => {
             </div>
         </div>
 
-        // <div className="min-h-screen bg-gray-100">
-        //     {/* <Navigation user={user} /> */}
-        //     <TopMenu user={user} />
-        //     <Sidebar />
-        //     <main>{children}</main>
-        // </div>
     )
 }
 

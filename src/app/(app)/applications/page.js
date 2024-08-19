@@ -2,7 +2,6 @@
 import ApplicationCreateModal from '@/components/Applications/ApplicationCreateModal'
 import ApplicationUpdateModal from '@/components/Applications/ApplicationUpdateModal'
 import axios from '@/lib/axios'
-import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { FaPlusCircle } from 'react-icons/fa'
 import { FaPencil } from 'react-icons/fa6'
@@ -76,9 +75,6 @@ const ApplicationList = () => {
                                     Name
                                 </th>
                                 <th scope="col" className="px-6 py-3 ">
-                                    Scan Copy
-                                </th>
-                                <th scope="col" className="px-6 py-3 ">
                                     Mobile
                                 </th>
                                 <th scope="col" className="px-6 py-3 ">
@@ -106,14 +102,7 @@ const ApplicationList = () => {
                                     <td className="px-6 py-2">
                                         {application.name}
                                     </td>
-                                    <td className="px-6 py-2 text-center">
-                                        <Image
-                                            src={application.scan_copy}
-                                            width="40"
-                                            height="40"
-                                            alt=""
-                                        />
-                                    </td>
+                                    
                                     <td className="px-2 py-2 text-center h-full">
                                         {application.mobile}
                                     </td>
@@ -139,7 +128,7 @@ const ApplicationList = () => {
                     </table>
                     <div className="mt-4 px-4 flex justify-end">
                         Pagination
-                        {/* <Pagination links={applications.links} currentPage={applications.currentPage} setCurrentPage={ page => setData('page', page)} /> */}
+                        
                     </div>
                 </div>
             </div>
@@ -153,6 +142,7 @@ const ApplicationList = () => {
 
             {applicationModal && (
                 <ApplicationCreateModal
+                    applicationList={applicationList}
                     closeApplicationCreateModal={closeApplicationCreateModal}
                 />
             )}

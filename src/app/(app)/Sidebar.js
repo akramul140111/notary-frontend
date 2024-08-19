@@ -6,7 +6,6 @@ import { IoSettingsOutline } from 'react-icons/io5'
 import { MdDashboard } from 'react-icons/md'
 
 const Sidebar = ({ countApplication, auth }) => {
-    // const { pathname } = useRouter();
 
     return (
         <div className="min-w-[70px] z-[99]">

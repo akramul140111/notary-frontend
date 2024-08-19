@@ -1,5 +1,6 @@
-import axios from '@/lib/axios'
-import { useState } from 'react'
+import axios from '@/lib/axios';
+import { useState } from 'react';
+import Select from 'react-select';
 import {
     IoAddCircleOutline,
     IoCloseCircle,
@@ -7,11 +8,22 @@ import {
 } from 'react-icons/io5'
 import Radio from '../Radio'
 
-const ApplicationCreateModal = ({ closeApplicationCreateModal }) => {
+const ApplicationCreateModal = ({ applicationList, closeApplicationCreateModal }) => {
     const [applicationData, setApplicationData] = useState({})
     const [applicationFile, setApplicationFile] = useState([
         { title: '', appImg: null },
     ])
+
+    const serviceChangeHandler = (e) => {
+        const name  = 'service'
+        const value = e.value
+        setApplicationData(values => ({ ...values, [name]: value }))
+    }
+
+    const serviceListOptions = applicationList?.services?.map((service) => ({
+        value: service.id,
+        label: service.name,
+    }));
 
     const handleTitleChange = (e, index) => {
         const { value }         = e.target
@@ -30,6 +42,7 @@ const ApplicationCreateModal = ({ closeApplicationCreateModal }) => {
     const addApplications = () => {
         setApplicationFile([...applicationFile, { title: '', appImg: null }])
     }
+    
     const redirectRemove = index => {
         const list = [...applicationFile]
         list.splice(index, 1)
@@ -49,6 +62,7 @@ const ApplicationCreateModal = ({ closeApplicationCreateModal }) => {
         formData.append('mobile', applicationData.mobile || '');
         formData.append('gender', applicationData.gender || '');
         formData.append('email', applicationData.email || '');
+        formData.append('service_id', applicationData.service || '');
     
         applicationFile.forEach((file, index) => {
             if (file.appImg) {
@@ -57,7 +71,6 @@ const ApplicationCreateModal = ({ closeApplicationCreateModal }) => {
             }
         });
 
-    
         axios
             .post('/api/application-store', formData, {
                 headers: {
@@ -100,6 +113,17 @@ const ApplicationCreateModal = ({ closeApplicationCreateModal }) => {
                             encType='multipart/form-data'
                             >
                             <div className="flex flex-col items-center px-6 min-h-[460px] max-h-[480px] overflow-y-auto">
+                                <div className="items-center w-full mt-8">
+                                    <label
+                                        htmlFor=""
+                                        className="block mb-2 text-sm font-bold text-gray-900 min-w-[150px]">
+                                        Select Serveice
+                                    </label>
+                                    <Select
+                                        onChange={serviceChangeHandler}
+                                        options={serviceListOptions}
+                                    />
+                                </div>
                                 <div className="items-center w-full mt-8">
                                     <label
                                         htmlFor=""
