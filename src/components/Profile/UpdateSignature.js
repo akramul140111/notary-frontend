@@ -5,12 +5,15 @@ import InputError from '../InputError'
 import Button from '../Button'
 import Image from 'next/image'
 import axios from '@/lib/axios'
+import Loading from '@/app/Loading'
 
 const UpdateSignature = ({ user, profileSignature }) => {
+    const [profileSign, setProfileSign] = useState(profileSignature)
     const [data, setData] = useState(null);
+    const [isLoading, setIsLoading] = useState(false)
     const appUrl = process.env.NEXT_PUBLIC_BACKEND_URL
     const [profileDetails, setProfileDetails] = useState()
-    const profileImage = appUrl+profileSignature
+    const profileImage = appUrl+profileSign
 
     const handleFileChange = (e) => {
         setData(e.target.files[0]);
@@ -22,14 +25,17 @@ const UpdateSignature = ({ user, profileSignature }) => {
         formData.append('signature', data || "");
 
         try {
+            setIsLoading(true)
             axios.post(`/api/profile-data/${user.id}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
             }).then((response)=>{
-                
+                setIsLoading(false)
+                setProfileSign(response?.data?.signature)
             });
         } catch (error) {
+            setIsLoading(false)
             console.error('Error updating signature:', error);
         }
     };
@@ -47,6 +53,7 @@ const UpdateSignature = ({ user, profileSignature }) => {
                 <div>
                     <Label htmlFor="name" value="Name" />
                     {profileDetails !== null ?<Image src={profileImage} alt='' width="50" height="50" />: ''}
+                    {isLoading && <Loading />}
                     <input
                         type="file"
                         id="signature"

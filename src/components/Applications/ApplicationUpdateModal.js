@@ -2,12 +2,16 @@ import axios from '@/lib/axios'
 import { useEffect, useState } from 'react'
 import { IoAddCircleOutline, IoCloseCircle, IoRemoveCircle } from 'react-icons/io5'
 import Radio from '../Radio'
+import Select from "react-select"
+import Loading from '@/app/Loading'
 
 const ApplicationUpdateModal = ({
     closeApplicationUpdateModal,
     applicationId,
 }) => {
     const [applicationData, setApplicationData] = useState({})
+    const [serviceList, setServiceList] = useState([])
+    const [isLoading, setIsLoading] = useState(false);
     const [applicationFile, setApplicationFile] = useState([
         { title: '', appImg: null },
     ])
@@ -15,6 +19,10 @@ const ApplicationUpdateModal = ({
     useEffect(() => {
         axios.get('/api/application-edit/' + applicationId).then(response => {
             setApplicationData(response?.data?.data)
+            if(response.data.data.scan_copy) {
+                setApplicationFile(response.data.data.scan_copy)
+            }
+            setServiceList(response?.data?.allServices)
         })
     }, [])
 
@@ -48,8 +56,20 @@ const ApplicationUpdateModal = ({
         setApplicationFile(list)
     }
 
+    const serviceChangeHandler = (e) => {
+        const name  = 'service'
+        const value = e.value
+        setApplicationData(values => ({ ...values, [name]: value }))
+    }
+
+    const serviceListOptions = serviceList?.map((service) => ({
+        value: service.id,
+        label: service.name,
+    }));
+
     const submit = (e) => {
         e.preventDefault();
+        setIsLoading(true)
         const formData = new FormData();
         formData.append('name', applicationData.name || '');
         formData.append('mobile', applicationData.mobile || '');
@@ -64,21 +84,26 @@ const ApplicationUpdateModal = ({
             }
         });
 
-
         axios
-            .post('/api/application-update'+applicationId, formData)
+            .post('/api/application-update/'+applicationId, formData)
             .then(response => {
+                setIsLoading(false)
                 closeApplicationUpdateModal()
             })
             .catch((error) => {
+                setIsLoading(false)
                 console.error(error);
             });
     };
+    
     return (
         <>
             <div
                 id="shakhaCreateModal"
                 className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-[999] transition-opacity">
+                    {isLoading && <div className='z-[9999] absolute w-full h-full flex items-center justify-center opacity-30 bg-gray-500'>
+                                <Loading />
+                            </div>}
                 <div
                     id="content"
                     className="bg-white shadow-md rounded-[0.25rem] w-2/6 min-h-[580px] transition ease-in-out scale-75">
@@ -101,6 +126,18 @@ const ApplicationUpdateModal = ({
                             method="POST"
                             onSubmit={submit}>
                             <div className="flex flex-col items-center px-6 min-h-[460px] max-h-[480px] overflow-y-auto">
+                            <div className="items-center w-full mt-8">
+                                <label
+                                    htmlFor=""
+                                    className="block mb-2 text-sm font-bold text-gray-900 min-w-[150px]">
+                                    Select Serveice
+                                </label>
+                                <Select
+                                    onChange={serviceChangeHandler}
+                                    options={serviceListOptions}
+                                    required
+                                />
+                            </div>
                                 <div className="items-center w-full mt-8">
                                     <label
                                         htmlFor=""

@@ -7,23 +7,16 @@ import {
     IoRemoveCircle,
 } from 'react-icons/io5'
 import Radio from '../Radio'
+import Loading from '@/app/Loading';
+import { useAuth } from '@/hooks/auth';
 
-const ApplicationCreateModal = ({ applicationList, closeApplicationCreateModal }) => {
+const ApplicationCreateModal = ({ service_id, updateApplicationList, applicationList, closeApplicationCreateModal }) => {
+    const auth = useAuth()
     const [applicationData, setApplicationData] = useState({})
+    const [isLoading, setIsLoading] = useState(false)
     const [applicationFile, setApplicationFile] = useState([
         { title: '', appImg: null },
     ])
-
-    const serviceChangeHandler = (e) => {
-        const name  = 'service'
-        const value = e.value
-        setApplicationData(values => ({ ...values, [name]: value }))
-    }
-
-    const serviceListOptions = applicationList?.services?.map((service) => ({
-        value: service.id,
-        label: service.name,
-    }));
 
     const handleTitleChange = (e, index) => {
         const { value }         = e.target
@@ -57,12 +50,14 @@ const ApplicationCreateModal = ({ applicationList, closeApplicationCreateModal }
 
     const submit = (e) => {
         e.preventDefault();
+        setIsLoading(true)
         const formData = new FormData();
         formData.append('name', applicationData.name || '');
         formData.append('mobile', applicationData.mobile || '');
         formData.append('gender', applicationData.gender || '');
         formData.append('email', applicationData.email || '');
-        formData.append('service_id', applicationData.service || '');
+        formData.append('service_id', service_id || '');
+        formData.append('userId', auth?.user?.id || '');
     
         applicationFile.forEach((file, index) => {
             if (file.appImg) {
@@ -78,9 +73,12 @@ const ApplicationCreateModal = ({ applicationList, closeApplicationCreateModal }
                 },
             })
             .then((response) => {
+                updateApplicationList(response.data)
+                setIsLoading(false)
                 closeApplicationCreateModal();
             })
             .catch((error) => {
+                setIsLoading(false)
                 console.error(error);
             });
     };
@@ -89,9 +87,13 @@ const ApplicationCreateModal = ({ applicationList, closeApplicationCreateModal }
             <div
                 id="shakhaCreateModal"
                 className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-[999] transition-opacity">
+                    {isLoading && <div className='z-[9999] absolute w-full h-full flex items-center justify-center opacity-30 bg-gray-500'>
+                                <Loading />
+                            </div>}
                 <div
                     id="content"
                     className="bg-white shadow-md rounded-[0.25rem] w-2/6 min-h-[580px] transition ease-in-out scale-75">
+                        
                     <div className="flex justify-between items-center px-4 pb-2 pt-4">
                         <h2 className="text-xl font-bold">
                             New Application Create
@@ -117,17 +119,6 @@ const ApplicationCreateModal = ({ applicationList, closeApplicationCreateModal }
                                     <label
                                         htmlFor=""
                                         className="block mb-2 text-sm font-bold text-gray-900 min-w-[150px]">
-                                        Select Serveice
-                                    </label>
-                                    <Select
-                                        onChange={serviceChangeHandler}
-                                        options={serviceListOptions}
-                                    />
-                                </div>
-                                <div className="items-center w-full mt-8">
-                                    <label
-                                        htmlFor=""
-                                        className="block mb-2 text-sm font-bold text-gray-900 min-w-[150px]">
                                         Name
                                     </label>
                                     <input
@@ -137,6 +128,7 @@ const ApplicationCreateModal = ({ applicationList, closeApplicationCreateModal }
                                         onChange={applicationDataChange}
                                         className="bg-whtie border border-gray-300 py-2 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
                                         placeholder="Enter your Name"
+                                        required
                                     />
                                 </div>
 
@@ -153,6 +145,7 @@ const ApplicationCreateModal = ({ applicationList, closeApplicationCreateModal }
                                         onChange={applicationDataChange}
                                         className="bg-whtie border border-gray-300 py-2 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
                                         placeholder="Enter your Mobile"
+                                        required
                                     />
                                 </div>
 
@@ -214,6 +207,7 @@ const ApplicationCreateModal = ({ applicationList, closeApplicationCreateModal }
                                             value={app.title}
                                             onChange={(e) => handleTitleChange(e, index)}
                                             placeholder="Enter Scan Copy title"
+                                            required
                                         />
                                         <input
                                             type="file"
@@ -221,6 +215,7 @@ const ApplicationCreateModal = ({ applicationList, closeApplicationCreateModal }
                                             accept="image/*"
                                             onChange={(e) => handleFileChange(e, index)}
                                             className="bg-white border border-gray-300 py-2 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
+                                            required
                                         />
                                             </div>
                                             {applicationFile.length - 1 !==
@@ -254,6 +249,7 @@ const ApplicationCreateModal = ({ applicationList, closeApplicationCreateModal }
                                 ))}
                             </div>
                             <hr />
+                            
                             <div className="flex justify-end px-4 py-3">
                                 <div className="flex gap-1">
                                     <button
@@ -272,6 +268,7 @@ const ApplicationCreateModal = ({ applicationList, closeApplicationCreateModal }
                     </div>
                 </div>
             </div>
+            
         </>
     )
 }

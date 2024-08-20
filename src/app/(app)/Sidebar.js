@@ -33,7 +33,7 @@ const Sidebar = ({ countApplication, auth }) => {
                                         <div>
                                             <Link
                                                 className="p-2 rounded-md hover:rounded-sm hover:bg-[rgba(64,_81,_137,_0.15)] flex justify-center"
-                                                href="/applications">
+                                                href="/services">
                                                 <FaBook className="text-[24px]" />
                                             </Link>
                                             <span className="text-[11px]">
@@ -42,20 +42,7 @@ const Sidebar = ({ countApplication, auth }) => {
                                         </div>
                                     </div>
                                 </li>
-                                <li className="mb-2 text-center">
-                                    <div className="flex">
-                                        <div>
-                                            <Link
-                                                className="p-2 rounded-md hover:rounded-sm hover:bg-[rgba(64,_81,_137,_0.15)] flex justify-center"
-                                                href="http://127.0.0.1:8002/ministries">
-                                                <IoSettingsOutline className="text-[24px]" />
-                                            </Link>
-                                            <span className="text-[11px]">
-                                                মন্ত্রণালয়
-                                            </span>
-                                        </div>
-                                    </div>
-                                </li>
+                                
                             </ul>
                         </div>
                     </div>
@@ -83,41 +70,7 @@ const Sidebar = ({ countApplication, auth }) => {
                                     <span>- </span>ড্যাশবোর্ড
                                 </Link>
                             </li>
-                            <li className="">
-                                <Link
-                                    className="block p-2 pl-4 hover:text-black"
-                                    href="#">
-                                    <span>- </span>অপেক্ষমান &nbsp; (2)
-                                </Link>
-                            </li>
-                            <li className="">
-                                <Link
-                                    className="block p-2 pl-4 hover:text-black"
-                                    href="#">
-                                    <span>- </span>প্রেরিত &nbsp; (0)
-                                </Link>
-                            </li>
-                            <li className="">
-                                <Link
-                                    className="block p-2 pl-4 hover:text-black"
-                                    href="#">
-                                    <span>- </span>অসম্পূর্ণ &nbsp; (0)
-                                </Link>
-                            </li>
-                            <li className="">
-                                <Link
-                                    className="block p-2 pl-4 hover:text-black"
-                                    href="#">
-                                    <span>- </span>নিষ্পত্তিকৃত &nbsp; (0)
-                                </Link>
-                            </li>
-                            <li className="">
-                                <Link
-                                    className="block p-2 pl-4 hover:text-black"
-                                    href="#">
-                                    <span>- </span>মোট আবেদন &nbsp; (2)
-                                </Link>
-                            </li>
+                            
                         </ul>
                     </div>
                 </div>

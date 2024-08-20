@@ -2,6 +2,7 @@
 import ApplicationCreateModal from '@/components/Applications/ApplicationCreateModal'
 import ApplicationUpdateModal from '@/components/Applications/ApplicationUpdateModal'
 import axios from '@/lib/axios'
+import { useParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { FaPlusCircle } from 'react-icons/fa'
 import { FaPencil } from 'react-icons/fa6'
@@ -11,8 +12,9 @@ const ApplicationList = () => {
     const [applicationModal, setApplicationModal] = useState(false)
     const [applicationUpdateModal, setApplicationUpdateModal] = useState(false)
     const [applicationId, setApplicationId] = useState(false)
+    const serviceId = useParams();
     useEffect(() => {
-        axios.get('/api/application-list').then(response => {
+        axios.get(`/api/application-list/${serviceId.id}`).then(response => {
             setApplicationList(response.data)
         })
     }, [])
@@ -146,6 +148,7 @@ const ApplicationList = () => {
 
             {applicationModal && (
                 <ApplicationCreateModal
+                    service_id = {serviceId.id}
                     updateApplicationList={updateApplicationList}
                     applicationList={applicationList}
                     closeApplicationCreateModal={closeApplicationCreateModal}
