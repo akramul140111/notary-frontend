@@ -5,16 +5,20 @@ import axios from '@/lib/axios'
 import { useEffect, useState } from 'react'
 import { FaPlusCircle } from 'react-icons/fa'
 import { FaPencil } from 'react-icons/fa6'
+import Loading from '../Loading'
 
 const ApplicationList = () => {
+    const [isLoading, setIsLoading] = useState(false);
     const [applicationList, setApplicationList] = useState([])
     const [applicationModal, setApplicationModal] = useState(false)
     const [applicationUpdateModal, setApplicationUpdateModal] = useState(false)
     const [applicationId, setApplicationId] = useState(false)
     useEffect(() => {
+        setIsLoading(true)
         axios.get('/api/application-list').then(response => {
             setApplicationList(response.data)
         })
+        setIsLoading(false)
     }, [])
 
     const openApplicationModal = () => {
@@ -65,6 +69,9 @@ const ApplicationList = () => {
                 </div>
 
                 <div className="bg-white py-4 rounded-[0.25rem] shadow-md border border-gray-[2px] mt-4">
+                {isLoading && <div className='z-[99999] absolute w-full h-full flex items-center justify-center opacity-60 bg-gray-500'>
+                                <Loading />
+                            </div>}
                     <table
                         className="w-full text-sm text-gray-500"
                         id="applicationList">

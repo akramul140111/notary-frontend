@@ -19,7 +19,7 @@ const Sidebar = ({ countApplication, auth }) => {
                                         <div>
                                             <Link
                                                 className="p-2 rounded-md hover:rounded-sm bg-[rgba(64,_81,_137,_0.15)] hover:bg-[rgba(64,_81,_137,_0.15)] flex justify-center"
-                                                href="http://127.0.0.1:8002/dashboard">
+                                                href="/dashboard">
                                                 <MdDashboard className="text-[24px]" />
                                             </Link>
                                             <span className="text-[11px]">

@@ -10,8 +10,10 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import GuestLayout from '../GuestLayout'
+import Loading from '@/app/Loading'
 
 const Login = () => {
+    const [isLoading, setIsLoading] = useState(false)
     const router = useRouter()
 
     const { login } = useAuth({
@@ -35,7 +37,7 @@ const Login = () => {
 
     const submitForm = async event => {
         event.preventDefault()
-
+        setIsLoading(true)
         login({
             email,
             password,
@@ -49,6 +51,9 @@ const Login = () => {
         <>
             <GuestLayout>
                 <AuthSessionStatus className="mb-4" status={status} />
+                {(isLoading && status == null) && <div className='z-[99999] top-0 left-0 absolute w-full h-full flex items-center justify-center opacity-30 '>
+                                <Loading />
+                            </div>}
                 <div className="bg-white p-8 rounded-lg shadow-xl w-96 h-[400px] relative">
                     <div className="flex items-center justify-center  ">
                         <span>

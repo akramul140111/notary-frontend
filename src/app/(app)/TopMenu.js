@@ -121,11 +121,11 @@ const TopMenu = ({ user }) => {
                                         <ResponsiveNavButton onClick={logout}>
                                             Logout
                                         </ResponsiveNavButton>
-                                        <form method="POST" action="">
+                                        {/* <form method="POST" action="">
                                             <div className="font-bold text-left w-full my-1">
                                                 Log Out
                                             </div>
-                                        </form>
+                                        </form> */}
                                     </div>
                                 )}
                             </div>

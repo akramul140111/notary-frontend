@@ -1,0 +1,24 @@
+.loading-wrapper {
+  height: 8px;
+  width: 90%;
+  
+  margin-inline: 5%;
+  
+  background: #CFD8DC;
+  border-radius: 5px;
+  
+  overflow: hidden;
+}
+.loader {
+  height: 100%;
+  width: 80%;
+  animation: loading 10s ease infinite;
+}
+@keyframes loading {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(130%);
+  }
+}

@@ -1,6 +1,6 @@
 import axios from '@/lib/axios';
 import { useState } from 'react';
-import Select from 'react-select';
+import "@/app/assets/css/scrollbar.css"
 import {
     IoAddCircleOutline,
     IoCloseCircle,
@@ -10,7 +10,7 @@ import Radio from '../Radio'
 import Loading from '@/app/Loading';
 import { useAuth } from '@/hooks/auth';
 
-const ApplicationCreateModal = ({ service_id, updateApplicationList, applicationList, closeApplicationCreateModal }) => {
+const ApplicationCreateModal = ({ service_id, serviceName, updateApplicationList, closeApplicationCreateModal }) => {
     const auth = useAuth()
     const [applicationData, setApplicationData] = useState({})
     const [isLoading, setIsLoading] = useState(false)
@@ -57,6 +57,7 @@ const ApplicationCreateModal = ({ service_id, updateApplicationList, application
         formData.append('gender', applicationData.gender || '');
         formData.append('email', applicationData.email || '');
         formData.append('service_id', service_id || '');
+        formData.append('service_name', serviceName || '');
         formData.append('userId', auth?.user?.id || '');
     
         applicationFile.forEach((file, index) => {
@@ -73,7 +74,7 @@ const ApplicationCreateModal = ({ service_id, updateApplicationList, application
                 },
             })
             .then((response) => {
-                updateApplicationList(response.data)
+                updateApplicationList(response.data.data.data)
                 setIsLoading(false)
                 closeApplicationCreateModal();
             })
@@ -87,7 +88,7 @@ const ApplicationCreateModal = ({ service_id, updateApplicationList, application
             <div
                 id="shakhaCreateModal"
                 className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-[999] transition-opacity">
-                    {isLoading && <div className='z-[9999] absolute w-full h-full flex items-center justify-center opacity-30 bg-gray-500'>
+                    {isLoading && <div className='z-[99999] absolute w-full h-full flex items-center justify-center opacity-60 bg-gray-500'>
                                 <Loading />
                             </div>}
                 <div
@@ -114,7 +115,7 @@ const ApplicationCreateModal = ({ service_id, updateApplicationList, application
                             onSubmit={submit}
                             encType='multipart/form-data'
                             >
-                            <div className="flex flex-col items-center px-6 min-h-[460px] max-h-[480px] overflow-y-auto">
+                            <div className="flex flex-col items-center px-6 min-h-[460px] max-h-[480px] overflow-y-auto scrollbar">
                                 <div className="items-center w-full mt-8">
                                     <label
                                         htmlFor=""

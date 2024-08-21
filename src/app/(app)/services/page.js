@@ -2,12 +2,16 @@
 import axios from '@/lib/axios'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
+import Loading from '../Loading'
 
 const page = () => {
+    const [isLoading, setIsLoading] = useState(false)
     const [serviceList, setServiceList] = useState([])
     useEffect(() => {
+        setIsLoading(true)
         axios.get('/api/service-list').then(response => {
             setServiceList(response.data.services)
+            setIsLoading(false)
         })
     }, [])
 
@@ -15,6 +19,9 @@ const page = () => {
         <>
             <div className="w-full px-6">
                 <div className="bg-white py-4 rounded-[0.25rem] shadow-md border border-gray-[2px] mt-4">
+                {isLoading && <div className='z-[99999] top-0 left-0 absolute w-full h-full flex items-center justify-center opacity-30 '>
+                                <Loading />
+                            </div>}
                     <table
                         className="w-full text-sm text-gray-500"
                         id="applicationList">
@@ -46,7 +53,7 @@ const page = () => {
                                     <td className="px-6 py-2">
                                         <Link href={`/services/${service.sid}`}>{service.name}</Link>
                                     </td>
-                                    <td className="px-6 py-2">
+                                    <td className="px-6 py-2 text-center">
                                         {service.application_count}
                                     </td>
                                 </tr>
