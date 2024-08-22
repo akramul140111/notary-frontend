@@ -46,10 +46,6 @@ const ApplicationList = () => {
         //     setIsLoading(false)
         // })
         getApplication()
-        axios.get(`/api/service-name/${serviceId.id}`).then(response => {
-            // setServiceName(response.data.services)
-            console.log(response);
-        })
     }, [pageNumber])
 
     const infinityScroll = async () => {
