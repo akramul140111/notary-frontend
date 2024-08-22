@@ -9,11 +9,13 @@ import {
 import Radio from '../Radio'
 import Loading from '@/app/Loading';
 import { useAuth } from '@/hooks/auth';
+import SignatureModal from './SignatureModal';
 
-const ApplicationCreateModal = ({ service_id, serviceName, updateApplicationList, closeApplicationCreateModal }) => {
+const ApplicationCreateModal = ({ service_id, serviceName, serviceMainId, updateApplicationList, closeApplicationCreateModal }) => {
     const auth = useAuth()
     const [applicationData, setApplicationData] = useState({})
     const [isLoading, setIsLoading] = useState(false)
+    const [openSignatureModal, setOpenSignatureModal] = useState(false)
     const [applicationFile, setApplicationFile] = useState([
         { title: '', appImg: null },
     ])
@@ -48,8 +50,21 @@ const ApplicationCreateModal = ({ service_id, serviceName, updateApplicationList
         setApplicationData(values => ({ ...values, [name]: value }))
     }
 
+    const signatureModalOpen = () => {
+        setOpenSignatureModal(true)
+    }
+
+    const signatureModalClose = () => {
+        setOpenSignatureModal(false)
+    }
+
     const submit = (e) => {
         e.preventDefault();
+        if(auth.user.signature == null)
+        {
+            signatureModalOpen()
+        } else {
+            
         setIsLoading(true)
         const formData = new FormData();
         formData.append('name', applicationData.name || '');
@@ -58,6 +73,7 @@ const ApplicationCreateModal = ({ service_id, serviceName, updateApplicationList
         formData.append('email', applicationData.email || '');
         formData.append('service_id', service_id || '');
         formData.append('service_name', serviceName || '');
+        formData.append('service_main_id', serviceMainId || '');
         formData.append('userId', auth?.user?.id || '');
     
         applicationFile.forEach((file, index) => {
@@ -82,15 +98,16 @@ const ApplicationCreateModal = ({ service_id, serviceName, updateApplicationList
                 setIsLoading(false)
                 console.error(error);
             });
+        }
     };
     return (
         <>
             <div
                 id="shakhaCreateModal"
                 className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-[999] transition-opacity">
-                    {isLoading && <div className='z-[99999] absolute w-full h-full flex items-center justify-center opacity-60 bg-gray-500'>
+                    {/* {isLoading && <div className='z-[99999] absolute w-full h-full flex items-center justify-center opacity-60 bg-gray-500'>
                                 <Loading />
-                            </div>}
+                            </div>} */}
                 <div
                     id="content"
                     className="bg-white shadow-md rounded-[0.25rem] w-2/6 min-h-[580px] transition ease-in-out scale-75">
@@ -260,9 +277,12 @@ const ApplicationCreateModal = ({ service_id, serviceName, updateApplicationList
                                         className="inline-flex items-center px-2 pt-3 pb-2 leading-3 border border-transparent rounded-[0.25rem] bg-red-700 text-sm text-white uppercase tracking-widest active:bg-g ray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-150 ms-3 float-righttbg-red-800 hover:bg-red-700 focus:bg-red-700 active:bg-red-900">
                                         Close
                                     </button>
-                                    <button className="inline-flex items-center px-2 pt-3 pb-2 leading-3 bg-[#405189] border border-transparent rounded-[0.25rem]  text-sm text-white uppercase tracking-widest hover:bg-[#364574] focus:bg-[#364574] active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 ms-3 float-rightt">
+                                    {isLoading ? <button className="inline-flex items-center px-2 pt-3 pb-2 leading-3 bg-[#929292] border border-transparent rounded-[0.25rem]  text-sm text-white uppercase tracking-widest focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-150 ms-3 float-rightt" disabled>
+                                        Proccessing...
+                                    </button> : <button className="inline-flex items-center px-2 pt-3 pb-2 leading-3 bg-[#405189] border border-transparent rounded-[0.25rem]  text-sm text-white uppercase tracking-widest hover:bg-[#364574] focus:bg-[#364574] active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 ms-3 float-rightt">
                                         Submit
-                                    </button>
+                                    </button>}
+                                    
                                 </div>
                             </div>
                         </form>
@@ -270,6 +290,7 @@ const ApplicationCreateModal = ({ service_id, serviceName, updateApplicationList
                 </div>
             </div>
             
+            {openSignatureModal && <SignatureModal signatureModalClose={signatureModalClose} />}
         </>
     )
 }

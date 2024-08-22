@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react'
 import { FaPlusCircle } from 'react-icons/fa'
 import { FaPencil } from 'react-icons/fa6'
 import Loading from '../../Loading'
-import PageLoading from '@/components/Applications/PageLoading'
+import ApplicationLoader from '../../ApplicationLoader'
 
 const ApplicationList = () => {
     const [isLoading, setIsLoading] = useState(false)
@@ -19,6 +19,8 @@ const ApplicationList = () => {
     const [pageNumber, setPageNumber] = useState(1);
     const [pageLoading, setPageLoading] = useState(false)
     const [serviceName, setServiceName] = useState({});
+    const [serviceMainId, setServiceMainId] = useState({});
+    const [totalPage, setTotalPage] = useState()
     
     const getApplication = () => {
         // setIsLoading(true);
@@ -29,10 +31,12 @@ const ApplicationList = () => {
                 );
                 const serviceNameFind = response.data.services.find(service => service.sid == serviceId.id) 
                 setServiceName(serviceNameFind.name);
+                setServiceMainId(serviceNameFind.id);
                 return [...previousApplication, ...newApplications];
             });
             // setIsLoading(false);
-            setPageLoading(false)
+            setTotalPage(response.data.data.last_page)
+            setPageLoading(false);
         }).catch(() => {
             setIsLoading(false);
         });
@@ -182,7 +186,7 @@ const ApplicationList = () => {
                         </tbody>
                     </table>
                             <div className='w-full'>
-                            {pageLoading && <PageLoading />}
+                            {(pageLoading && totalPage > pageNumber) && <ApplicationLoader />}
                             </div>
                     <div className="mt-4 px-4 flex justify-end">
                         Pagination
@@ -201,8 +205,9 @@ const ApplicationList = () => {
 
             {applicationModal && (
                 <ApplicationCreateModal
-                    service_id = {serviceId.id}
-                    serviceName = {serviceName}
+                    service_id      = {serviceId.id}
+                    serviceName     = {serviceName}
+                    serviceMainId   = {serviceMainId}
                     updateApplicationList={updateApplicationList}
                     closeApplicationCreateModal={closeApplicationCreateModal}
                 />
