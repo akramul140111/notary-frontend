@@ -8,19 +8,19 @@ import Loading from '@/app/Loading'
 
 const UpdateSignature = ({ user, profileSignature }) => {
     const [profileSign, setProfileSign] = useState(profileSignature)
-    const [data, setData] = useState(null);
+    const [data, setData] = useState(null)
     const [isLoading, setIsLoading] = useState(false)
     const appUrl = process.env.NEXT_PUBLIC_BACKEND_URL
     const profileImage = appUrl+profileSign
 
     const handleFileChange = (e) => {
-        setData(e.target.files[0]);
+        setData(e.target.files[0])
     }
 
     const submit = (e) => {
-        e.preventDefault();
-        const formData = new FormData();
-        formData.append('signature', data || "");
+        e.preventDefault()
+        const formData = new FormData()
+        formData.append('signature', data || "")
 
         try {
             setIsLoading(true)
@@ -31,12 +31,12 @@ const UpdateSignature = ({ user, profileSignature }) => {
             }).then((response)=>{
                 setIsLoading(false)
                 setProfileSign(response?.data?.signature)
-            });
+            })
         } catch (error) {
             setIsLoading(false)
-            console.error('Error updating signature:', error);
+            console.error('Error updating signature:', error)
         }
-    };
+    }
   return (
     <section >
             <header>
@@ -59,7 +59,6 @@ const UpdateSignature = ({ user, profileSignature }) => {
                         className="mt-1 block w-full"
                         onChange={handleFileChange}
                         required
-                        isFocused
                         autoComplete="signature"
                     />
 

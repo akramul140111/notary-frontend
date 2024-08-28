@@ -28,7 +28,7 @@ const DashboardCard = ({countLink, image, title, count}) => {
                         </svg>
                     </div>
                     <div className="flex gap-6 justify-between mt-4 text">
-                        <Image 
+                        <Image
                             src={image}
                             alt=""
                             height="30"
@@ -46,7 +46,7 @@ const DashboardCard = ({countLink, image, title, count}) => {
                 </div>
             </Link>
         </>
-    );
-};
+    )
+}
 
-export default DashboardCard;
+export default DashboardCard

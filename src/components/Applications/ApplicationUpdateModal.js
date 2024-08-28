@@ -83,7 +83,7 @@ const ApplicationUpdateModal = ({
                 setIsLoading(false)
                 closeApplicationUpdateModal()
             })
-            .catch((e) => {
+            .catch(() => {
                 setIsLoading(false)
             })
     }

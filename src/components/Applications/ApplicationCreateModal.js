@@ -63,7 +63,7 @@ const ApplicationCreateModal = ({
         setOpenSignatureModal(false)
     }
 
-    const submit = e => {
+    const submit = (e) => {
         e.preventDefault()
         if (auth.user.signature == null) {
             signatureModalOpen()
@@ -97,7 +97,7 @@ const ApplicationCreateModal = ({
                     setIsLoading(false)
                     closeApplicationCreateModal()
                 })
-                .catch((e) => {
+                .catch(() => {
                     setIsLoading(false)
                 })
         }

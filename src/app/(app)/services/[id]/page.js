@@ -21,14 +21,14 @@ const ApplicationList = () => {
     const [serviceName, setServiceName] = useState({})
     const [serviceMainId, setServiceMainId] = useState({})
     const [totalPage, setTotalPage] = useState()
-    
+
     const getApplication = () => {
         axios.get(`/api/application-list/${serviceId.id}?page=${pageNumber}`).then(response => {
             setApplicationList((previousApplication) => {
-                const newApplications = response.data.data.data.filter(application => 
+                const newApplications = response.data.data.data.filter(application =>
                     !previousApplication.some(existingApp => existingApp.id === application.id)
                 )
-                const serviceNameFind = response.data.services.find(service => service.sid == serviceId.id) 
+                const serviceNameFind = response.data.services.find(service => service.sid == serviceId.id)
                 setServiceName(serviceNameFind.name)
                 setServiceMainId(serviceNameFind.id)
                 return [...previousApplication, ...newApplications]
@@ -153,7 +153,7 @@ const ApplicationList = () => {
                                     <td className="px-6 py-2">
                                         {application.name}
                                     </td>
-                                    
+
                                     <td className="px-2 py-2 text-center h-full py-4">
                                         {application.mobile}
                                     </td>

@@ -7,7 +7,7 @@ const Loading = () => {
                         Loading....
                     </h1>
                     <div className="loading-wrapper">
-                        <div className="loader bg-green-600"></div>
+                        <div className="loader bg-green-600"/>
                     </div>
                 </div>
             </div>

@@ -36,7 +36,7 @@ const SignatureModal = ({ signatureModalClose }) => {
                 </div>
             </div>
         </>
-    );
+    )
 }
 
 export default SignatureModal
