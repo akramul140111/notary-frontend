@@ -8,7 +8,7 @@ import { FaPencil } from 'react-icons/fa6'
 import Loading from '../Loading'
 
 const ApplicationList = () => {
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false)
     const [applicationList, setApplicationList] = useState([])
     const [applicationModal, setApplicationModal] = useState(false)
     const [applicationUpdateModal, setApplicationUpdateModal] = useState(false)
@@ -50,7 +50,7 @@ const ApplicationList = () => {
         }, 100)
     }
 
-    const updateApplicationList = (application) => {
+    const updateApplicationList = application => {
         setApplicationList(application)
     }
 
@@ -69,9 +69,11 @@ const ApplicationList = () => {
                 </div>
 
                 <div className="bg-white py-4 rounded-[0.25rem] shadow-md border border-gray-[2px] mt-4">
-                {isLoading && <div className='z-[99999] absolute w-full h-full flex items-center justify-center opacity-60 bg-gray-500'>
-                                <Loading />
-                            </div>}
+                    {isLoading && (
+                        <div className="z-[99999] absolute w-full h-full flex items-center justify-center opacity-60 bg-gray-500">
+                            <Loading />
+                        </div>
+                    )}
                     <table
                         className="w-full text-sm text-gray-500"
                         id="applicationList">
@@ -113,7 +115,7 @@ const ApplicationList = () => {
                                     <td className="px-6 py-2">
                                         {application.name}
                                     </td>
-                                    
+
                                     <td className="px-2 py-2 text-center h-full">
                                         {application.mobile}
                                     </td>
@@ -125,7 +127,7 @@ const ApplicationList = () => {
                                     </td>
                                     <td className="rounded-lg text-center">
                                         <button
-                                            onClick={e =>
+                                            onClick={() =>
                                                 openApplicationUpdateModal(
                                                     application.id,
                                                 )
@@ -137,10 +139,6 @@ const ApplicationList = () => {
                             ))}
                         </tbody>
                     </table>
-                    <div className="mt-4 px-4 flex justify-end">
-                        Pagination
-                        
-                    </div>
                 </div>
             </div>
 

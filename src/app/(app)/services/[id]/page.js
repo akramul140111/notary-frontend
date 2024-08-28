@@ -15,11 +15,11 @@ const ApplicationList = () => {
     const [applicationModal, setApplicationModal] = useState(false)
     const [applicationUpdateModal, setApplicationUpdateModal] = useState(false)
     const [applicationId, setApplicationId] = useState(false)
-    const serviceId = useParams();
-    const [pageNumber, setPageNumber] = useState(1);
+    const serviceId = useParams()
+    const [pageNumber, setPageNumber] = useState(1)
     const [pageLoading, setPageLoading] = useState(false)
-    const [serviceName, setServiceName] = useState({});
-    const [serviceMainId, setServiceMainId] = useState({});
+    const [serviceName, setServiceName] = useState({})
+    const [serviceMainId, setServiceMainId] = useState({})
     const [totalPage, setTotalPage] = useState()
     
     const getApplication = () => {
@@ -27,19 +27,19 @@ const ApplicationList = () => {
             setApplicationList((previousApplication) => {
                 const newApplications = response.data.data.data.filter(application => 
                     !previousApplication.some(existingApp => existingApp.id === application.id)
-                );
+                )
                 const serviceNameFind = response.data.services.find(service => service.sid == serviceId.id) 
-                setServiceName(serviceNameFind.name);
-                setServiceMainId(serviceNameFind.id);
-                return [...previousApplication, ...newApplications];
-            });
+                setServiceName(serviceNameFind.name)
+                setServiceMainId(serviceNameFind.id)
+                return [...previousApplication, ...newApplications]
+            })
             setTotalPage(response.data.data.last_page)
-            setPageLoading(false);
-            setIsLoading(false);
+            setPageLoading(false)
+            setIsLoading(false)
         }).catch(() => {
-            setIsLoading(false);
-        });
-    };
+            setIsLoading(false)
+        })
+    }
 
     useEffect(() => {
         getApplication()
@@ -48,18 +48,18 @@ const ApplicationList = () => {
     const infinityScroll = async () => {
         try {
           if (window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight) {
-            setPageLoading(true);
-            setPageNumber(prevState => prevState + 1);
+            setPageLoading(true)
+            setPageNumber(prevState => prevState + 1)
           }
-        } catch (error) {
-          console.log(error);
-        }
-      };
+        } catch (() => {
+            console.log("error");
+        })
+      }
 
       useEffect(() => {
-        window.addEventListener("scroll", infinityScroll);
-        return () => window.removeEventListener("scroll", infinityScroll);
-      }, []);
+        window.addEventListener("scroll", infinityScroll)
+        return () => window.removeEventListener("scroll", infinityScroll)
+      }, [])
 
     const openApplicationModal = () => {
         setApplicationModal(true)
@@ -165,7 +165,7 @@ const ApplicationList = () => {
                                     </td>
                                     <td className="rounded-lg text-center py-4">
                                         <button
-                                            onClick={e =>
+                                            onClick={() =>
                                                 openApplicationUpdateModal(
                                                     application.id,
                                                 )

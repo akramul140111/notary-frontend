@@ -97,9 +97,8 @@ const ApplicationCreateModal = ({
                     setIsLoading(false)
                     closeApplicationCreateModal()
                 })
-                .catch(error => {
+                .catch(() => {
                     setIsLoading(false)
-                    console.error(error)
                 })
         }
     }

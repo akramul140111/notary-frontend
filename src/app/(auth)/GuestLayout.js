@@ -33,13 +33,15 @@ const GuestLayout = ({ children }) => {
                             <span className="text-[13px] mx-6">
                                 পরিকল্পনা বাস্তবায়নে
                             </span>
-                            <Image src={A2iLogoSet} className="h-6 " alt="" />
+                            <Image src={A2iLogoSet} className="h-6 " alt="" loading='lazy' quality={70} />
                         </div>
                         <div className="flex items-center">
                             <Image
                                 src={BdMonoGram}
                                 className="h-8 rounded-2xl"
                                 alt=""
+                                loading='lazy'
+                                quality={70}
                             />
                             <div>
                                 <p className="text-[13px] mx-4">
@@ -59,6 +61,8 @@ const GuestLayout = ({ children }) => {
                                 src={OrangeBdLogo}
                                 alt=""
                                 className="h-5 mx-6"
+                                loading='lazy'
+                                quality={70}
                             />
                         </div>
                     </div>

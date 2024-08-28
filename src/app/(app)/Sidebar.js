@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { FaBook } from 'react-icons/fa'
 import { MdDashboard } from 'react-icons/md'
 
-const Sidebar = ({ countApplication, auth }) => {
+const Sidebar = () => {
 
     return (
         <div className="min-w-[70px] z-[99]">

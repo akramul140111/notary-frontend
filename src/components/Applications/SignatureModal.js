@@ -1,7 +1,7 @@
-import Link from 'next/link';
+import Link from 'next/link'
 import React from 'react'
-import { FaInfo } from 'react-icons/fa';
-import { IoCloseCircleOutline } from 'react-icons/io5';
+import { FaInfo } from 'react-icons/fa'
+import { IoCloseCircleOutline } from 'react-icons/io5'
 
 const SignatureModal = ({ signatureModalClose }) => {
     return (

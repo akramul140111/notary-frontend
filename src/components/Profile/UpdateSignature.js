@@ -1,7 +1,6 @@
 
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Label from '../Label'
-import InputError from '../InputError'
 import Button from '../Button'
 import Image from 'next/image'
 import axios from '@/lib/axios'
@@ -12,7 +11,6 @@ const UpdateSignature = ({ user, profileSignature }) => {
     const [data, setData] = useState(null);
     const [isLoading, setIsLoading] = useState(false)
     const appUrl = process.env.NEXT_PUBLIC_BACKEND_URL
-    const [profileDetails, setProfileDetails] = useState()
     const profileImage = appUrl+profileSign
 
     const handleFileChange = (e) => {
@@ -34,10 +32,9 @@ const UpdateSignature = ({ user, profileSignature }) => {
                 setIsLoading(false)
                 setProfileSign(response?.data?.signature)
             });
-        } catch (error) {
+        } catch (() =>{
             setIsLoading(false)
-            console.error('Error updating signature:', error);
-        }
+        })
     };
   return (
     <section >

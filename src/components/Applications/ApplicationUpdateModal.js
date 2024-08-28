@@ -6,7 +6,6 @@ import {
     IoRemoveCircle,
 } from 'react-icons/io5'
 import Radio from '../Radio'
-import Select from 'react-select'
 import Loading from '@/app/Loading'
 import '@/app/assets/css/scrollbar.css'
 
@@ -16,7 +15,6 @@ const ApplicationUpdateModal = ({
     service_id,
 }) => {
     const [applicationData, setApplicationData] = useState({})
-    const [serviceList, setServiceList] = useState([])
     const [isLoading, setIsLoading] = useState(false)
     const [applicationFile, setApplicationFile] = useState([
         { title: '', appImg: null },
@@ -28,7 +26,6 @@ const ApplicationUpdateModal = ({
             if (response.data.data.scan_copy) {
                 setApplicationFile(response.data.data.scan_copy)
             }
-            setServiceList(response?.data?.allServices)
         })
     }, [])
 
@@ -62,17 +59,6 @@ const ApplicationUpdateModal = ({
         setApplicationFile(list)
     }
 
-    const serviceChangeHandler = e => {
-        const name = 'service'
-        const value = e.value
-        setApplicationData(values => ({ ...values, [name]: value }))
-    }
-
-    const serviceListOptions = serviceList?.map(service => ({
-        value: service.id,
-        label: service.name,
-    }))
-
     const submit = e => {
         e.preventDefault()
         setIsLoading(true)
@@ -93,13 +79,12 @@ const ApplicationUpdateModal = ({
 
         axios
             .post('/api/application-update/' + applicationId, formData)
-            .then(response => {
+            .then(() => {
                 setIsLoading(false)
                 closeApplicationUpdateModal()
             })
-            .catch(error => {
+            .catch(() => {
                 setIsLoading(false)
-                console.error(error)
             })
     }
 

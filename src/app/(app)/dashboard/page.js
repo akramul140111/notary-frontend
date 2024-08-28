@@ -1,9 +1,9 @@
 import DashboardCard from "@/components/Dashboard/DashboardCard"
-import ApplicationCollect from "@/app/assets/applications/application.png";
-import ApplicationDak from "@/app/assets/applications/dak.png";
-import ApplicationNothi from "@/app/assets/applications/nothi.png";
-import ApplicationNisponno from "@/app/assets/applications/nisponno.png";
-import ApplicationTotal from "@/app/assets/applications/total-applications.png";
+import ApplicationCollect from "@/app/assets/applications/application.png"
+import ApplicationDak from "@/app/assets/applications/dak.png"
+import ApplicationNothi from "@/app/assets/applications/nothi.png"
+import ApplicationNisponno from "@/app/assets/applications/nisponno.png"
+import ApplicationTotal from "@/app/assets/applications/total-applications.png"
 
 export const metadata = {
     title: 'Law Ministry - Dashboard',
@@ -11,7 +11,6 @@ export const metadata = {
 
 const Dashboard = () => {
     return (
-        <>
             <div className="mx-6  rounded-md">
                 <div className="py-6">
                     <div className="max-w-full mx-auto ">
@@ -29,7 +28,6 @@ const Dashboard = () => {
                 
                 
             </div>
-        </>
     )
 }
 

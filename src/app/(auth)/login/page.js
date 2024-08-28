@@ -2,7 +2,6 @@
 
 import AuthSessionStatus from '@/app/(auth)/AuthSessionStatus'
 import BdMonoGram from '@/app/assets/appImage/bd-monogram.png'
-import Input from '@/components/Input'
 import InputError from '@/components/InputError'
 import Label from '@/components/Label'
 import { useAuth } from '@/hooks/auth'
@@ -10,7 +9,6 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import GuestLayout from '../GuestLayout'
-import Loading from '@/app/Loading'
 
 const Login = () => {
     const [isLoading, setIsLoading] = useState(false)
