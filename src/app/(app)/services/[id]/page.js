@@ -51,9 +51,9 @@ const ApplicationList = () => {
             setPageLoading(true)
             setPageNumber(prevState => prevState + 1)
           }
-        } catch (() => {
-            console.log("error");
-        })
+        } catch (error) {
+          console.log(error)
+        }
       }
 
       useEffect(() => {

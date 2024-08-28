@@ -32,9 +32,10 @@ const UpdateSignature = ({ user, profileSignature }) => {
                 setIsLoading(false)
                 setProfileSign(response?.data?.signature)
             });
-        } catch (() =>{
+        } catch (error) {
             setIsLoading(false)
-        })
+            console.error('Error updating signature:', error);
+        }
     };
   return (
     <section >
