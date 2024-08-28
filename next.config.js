@@ -7,6 +7,7 @@ module.exports = {
         port: '8000',
       },
     ],
+    formats: ['image/avif', 'image/webp'],
   },
 
 

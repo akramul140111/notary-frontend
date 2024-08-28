@@ -52,7 +52,7 @@ const UpdateSignature = ({ user, profileSignature }) => {
             <form onSubmit={submit} className="mt-6 space-y-6" encType='multipart/form-data'>
                 <div>
                     <Label htmlFor="name" value="Name" />
-                    { profileSign != null ? <Image src={profileImage} alt='' width="50" height="50" />: ''}
+                    { profileSign != null ? <Image src={profileImage} alt='' width="50" height="50" loading='lazy' quality={70} />: ''}
                     {isLoading && <Loading />}
                     <input
                         type="file"

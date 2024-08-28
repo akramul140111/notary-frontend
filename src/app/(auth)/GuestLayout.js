@@ -10,7 +10,7 @@ const GuestLayout = ({ children }) => {
         <div className="bg-[#f8fafc] min-h-screen  flex justify-between flex-col">
             <header className="min-h-[120px]">
                 <div className="flex justify-between mx-4 ">
-                    <Image src={MyGovLogo} className="mt-2" alt="" />
+                    <Image src={MyGovLogo} className="mt-2" alt="" loading='lazy' quality={70} />
                 </div>
             </header>
             <div className=" flex justify-center items-center">
@@ -22,6 +22,8 @@ const GuestLayout = ({ children }) => {
                         src={VectorLogo}
                         className="bg-cover bg-center w-full h-32 bg-no-repeat"
                         alt=""
+                        loading='lazy'
+                        quality={70}
                     />
                 </div>
 

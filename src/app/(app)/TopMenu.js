@@ -10,7 +10,7 @@ const TopMenu = ({ user }) => {
     const logoutPanel = () => {
         setLogoutSection(!logoutSection)
     }
-    
+
     return (
         <>
             <div className="sticky top-0 bg-white min-h-[70px] z-50 border-b border-b-gray-300 flex justify-between items-center px-5 gap-4">
@@ -33,7 +33,10 @@ const TopMenu = ({ user }) => {
                         <div className="flex justify-end h-16 items-center">
                             <div className="hidden sm:flex sm:items-center bg-[#F1F4F9] p-2">
                                 <div className="hidden md:block mx-2 w-[40px] h-[40px] rounded-full overflow-hidden">
-                                    <FaUser className="text-[33px] text-gray-600" />
+                                    <FaUser
+                                        className="text-[33px] text-gray-600"
+                                        loading="lazy"
+                                    />
                                 </div>
                                 <div
                                     align="right"
@@ -49,7 +52,7 @@ const TopMenu = ({ user }) => {
                                                     fdprocessedid="9b5ml">
                                                     <div>
                                                         <p className="font-bold text-left">
-                                                        {user?.name}
+                                                            {user?.name}
                                                         </p>
                                                         <p className="text-[10px] hidden lg:block">
                                                             মাইগভ টিম, ইয়ং
@@ -121,11 +124,6 @@ const TopMenu = ({ user }) => {
                                         <ResponsiveNavButton onClick={logout}>
                                             Logout
                                         </ResponsiveNavButton>
-                                        {/* <form method="POST" action="">
-                                            <div className="font-bold text-left w-full my-1">
-                                                Log Out
-                                            </div>
-                                        </form> */}
                                     </div>
                                 )}
                             </div>

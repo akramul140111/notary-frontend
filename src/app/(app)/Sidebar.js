@@ -2,7 +2,6 @@ import myGov from '@/app/assets/appImage/my-gov.png'
 import Image from 'next/image'
 import Link from 'next/link'
 import { FaBook } from 'react-icons/fa'
-import { IoSettingsOutline } from 'react-icons/io5'
 import { MdDashboard } from 'react-icons/md'
 
 const Sidebar = ({ countApplication, auth }) => {
@@ -20,7 +19,7 @@ const Sidebar = ({ countApplication, auth }) => {
                                             <Link
                                                 className="p-2 rounded-md hover:rounded-sm bg-[rgba(64,_81,_137,_0.15)] hover:bg-[rgba(64,_81,_137,_0.15)] flex justify-center"
                                                 href="/dashboard">
-                                                <MdDashboard className="text-[24px]" />
+                                                <MdDashboard className="text-[24px]" loading="lazy" />
                                             </Link>
                                             <span className="text-[11px]">
                                                 ড্যাশবোর্ড
@@ -34,7 +33,7 @@ const Sidebar = ({ countApplication, auth }) => {
                                             <Link
                                                 className="p-2 rounded-md hover:rounded-sm hover:bg-[rgba(64,_81,_137,_0.15)] flex justify-center"
                                                 href="/services">
-                                                <FaBook className="text-[24px]" />
+                                                <FaBook className="text-[24px]" loading='lazy' />
                                             </Link>
                                             <span className="text-[11px]">
                                                 আবেদন
@@ -57,7 +56,9 @@ const Sidebar = ({ countApplication, auth }) => {
                                 src={myGov}
                                 className="mt-2"
                                 alt=""
-                                width="150"
+                                width="120"
+                                loading='lazy'
+                                quality={70}
                             />
                         </Link>
                     </div>

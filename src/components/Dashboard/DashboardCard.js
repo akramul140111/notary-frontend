@@ -33,6 +33,8 @@ const DashboardCard = ({countLink, image, title, count}) => {
                             alt=""
                             height="30"
                             width="30"
+                            loading="lazy"
+                            quality={70}
                         />
                         <h3
                             className="text-3xl font-semibold text-gray-600"

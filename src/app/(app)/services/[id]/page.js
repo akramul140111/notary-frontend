@@ -23,7 +23,6 @@ const ApplicationList = () => {
     const [totalPage, setTotalPage] = useState()
     
     const getApplication = () => {
-        // setIsLoading(true);
         axios.get(`/api/application-list/${serviceId.id}?page=${pageNumber}`).then(response => {
             setApplicationList((previousApplication) => {
                 const newApplications = response.data.data.data.filter(application => 
@@ -34,7 +33,6 @@ const ApplicationList = () => {
                 setServiceMainId(serviceNameFind.id);
                 return [...previousApplication, ...newApplications];
             });
-            // setIsLoading(false);
             setTotalPage(response.data.data.last_page)
             setPageLoading(false);
         }).catch(() => {
@@ -42,13 +40,7 @@ const ApplicationList = () => {
         });
     };
 
-    
-
     useEffect(() => {
-        // axios.get(`/api/application-list/${serviceId.id}?page=${page}`).then(response => {
-        //     setApplicationList(response.data)
-        //     setIsLoading(false)
-        // })
         getApplication()
     }, [pageNumber])
 
@@ -165,7 +157,7 @@ const ApplicationList = () => {
                                         {application.mobile}
                                     </td>
                                     <td className="px-2 py-2 text-center h-full py-4">
-                                        {application.gender}
+                                        {application.gender == "1" ? "Male" : "Female"}
                                     </td>
                                     <td className="px-2 py-2 text-center h-full py-4">
                                         {application.email}

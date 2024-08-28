@@ -33,8 +33,12 @@ const Login = () => {
         } else {
             setStatus(null)
         }
-    })
 
+        if (Object.keys(errors).length > 0) {
+            setIsLoading(false)
+        }
+    },[errors, router.reset])
+    
     const submitForm = async event => {
         event.preventDefault()
         setIsLoading(true)
@@ -51,9 +55,9 @@ const Login = () => {
         <>
             <GuestLayout>
                 <AuthSessionStatus className="mb-4" status={status} />
-                {(isLoading && status == null) && <div className='z-[99999] top-0 left-0 absolute w-full h-full flex items-center justify-center opacity-30 '>
+                {/* {(isLoading && status == null) && <div className='z-[99999] top-0 left-0 absolute w-full h-full flex items-center justify-center opacity-30 '>
                                 <Loading />
-                            </div>}
+                            </div>} */}
                 <div className="bg-white p-8 rounded-lg shadow-xl w-96 h-[400px] relative">
                     <div className="flex items-center justify-center  ">
                         <span>
@@ -61,6 +65,8 @@ const Login = () => {
                                 src={BdMonoGram}
                                 alt="Government Logo"
                                 className="rounded-full"
+                                loading='lazy'
+                                quality={70}
                             />
                         </span>
                     </div>
@@ -135,11 +141,19 @@ const Login = () => {
                         </div>
 
                         <div className="flex items-center justify-between mb-2">
-                            <button
-                                type="submit"
-                                className="w-full bg-[#009e4d] text-white py-2 text-[12px] px-4 mt-6 rounded-3xl focus:ring-2 focus:ring-offset-2">
-                                লগইন
-                            </button>
+                            {isLoading ? (
+                                    <button
+                                        className="w-full bg-[#929292] text-white py-2 text-[12px] px-4 mt-6 rounded-3xl focus:ring-2 focus:ring-offset-2"
+                                        disabled>
+                                        Processing...
+                                    </button>
+                                ) : (
+                                    <button
+                                        type="submit"
+                                        className="w-full bg-[#009e4d] text-white py-2 text-[12px] px-4 mt-6 rounded-3xl focus:ring-2 focus:ring-offset-2">
+                                        লগইন
+                                    </button>
+                                )}
                         </div>
                     </form>
                 </div>
