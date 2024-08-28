@@ -19,7 +19,7 @@ const page = () => {
         <>
             <div className="w-full px-6">
                 <div className="bg-white py-4 rounded-[0.25rem] shadow-md border border-gray-[2px] mt-4">
-                {isLoading && <div className='z-[99999] top-0 left-0 absolute w-full h-full flex items-center justify-center opacity-30 '>
+                {isLoading && <div className='z-[99999] top-0 left-0 absolute w-full h-full flex items-center justify-center opacity-50 '>
                                 <Loading />
                             </div>}
                     <table
@@ -60,7 +60,6 @@ const page = () => {
                             ))}
                         </tbody>
                     </table>
-                    <div className="mt-4 px-4 flex justify-end">Pagination</div>
                 </div>
             </div>
         </>

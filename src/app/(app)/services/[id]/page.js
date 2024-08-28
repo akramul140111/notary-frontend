@@ -10,7 +10,7 @@ import Loading from '../../Loading'
 import ApplicationLoader from '../../ApplicationLoader'
 
 const ApplicationList = () => {
-    const [isLoading, setIsLoading] = useState(false)
+    const [isLoading, setIsLoading] = useState(true)
     const [applicationList, setApplicationList] = useState([])
     const [applicationModal, setApplicationModal] = useState(false)
     const [applicationUpdateModal, setApplicationUpdateModal] = useState(false)
@@ -35,6 +35,7 @@ const ApplicationList = () => {
             });
             setTotalPage(response.data.data.last_page)
             setPageLoading(false);
+            setIsLoading(false);
         }).catch(() => {
             setIsLoading(false);
         });
@@ -108,7 +109,7 @@ const ApplicationList = () => {
                 </div>
 
                 <div className="bg-white py-4 rounded-[0.25rem] shadow-md border border-gray-[2px] mt-4">
-                    {isLoading && <div className='z-[99999] top-0 left-0 absolute w-full h-full flex items-center justify-center opacity-30 '>
+                    {isLoading && <div className='z-[99999] top-0 left-0 absolute w-full h-full flex items-center justify-center opacity-50 '>
                             <Loading />
                         </div>}
                     <table
@@ -180,10 +181,7 @@ const ApplicationList = () => {
                             <div className='w-full'>
                             {(pageLoading && totalPage > pageNumber) && <ApplicationLoader />}
                             </div>
-                    <div className="mt-4 px-4 flex justify-end">
-                        Pagination
-                        
-                    </div>
+
                 </div>
             </div>
 
