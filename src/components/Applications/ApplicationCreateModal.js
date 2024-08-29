@@ -65,9 +65,9 @@ const ApplicationCreateModal = ({
 
     const submit = (e) => {
         e.preventDefault()
-        if (auth.user.signature == null) {
-            signatureModalOpen()
-        } else {
+        // if (auth.user.signature == null) {
+        //     signatureModalOpen()
+        // } else {
             setIsLoading(true)
             const formData = new FormData()
             formData.append('name', applicationData.name || '')
@@ -100,7 +100,7 @@ const ApplicationCreateModal = ({
                 .catch(() => {
                     setIsLoading(false)
                 })
-        }
+        // }
     }
 
     return (
