@@ -29,6 +29,7 @@ const UpdateSignature = ({ user, profileSignature }) => {
                     'Content-Type': 'multipart/form-data',
                 },
             }).then((response)=>{
+
                 setIsLoading(false)
                 setProfileSign(response?.data?.signature)
             })

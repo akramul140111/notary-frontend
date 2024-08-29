@@ -6,9 +6,11 @@ import React, { useEffect, useState } from 'react'
 
 const page = () => {
     const { user } = useAuth({ middleware: 'auth' })
+    console.log(user, 'checking')
     const [profileDetails, setProfileDetails] = useState()
     useEffect(() => {
         axios.get(`/api/profile-data/${user.id}`).then(response => {
+            console.log(response, 'checking')
             setProfileDetails(response?.data)
         })
     }, [])
