@@ -8,7 +8,7 @@ import {
 } from 'react-icons/io5'
 import Radio from '../Radio'
 import { useAuth } from '@/hooks/auth'
-import SignatureModal from './SignatureModal'
+// import SignatureModal from './SignatureModal'
 
 const ApplicationCreateModal = ({
     service_id,
@@ -20,7 +20,7 @@ const ApplicationCreateModal = ({
     const auth = useAuth()
     const [applicationData, setApplicationData] = useState({})
     const [isLoading, setIsLoading] = useState(false)
-    const [openSignatureModal, setOpenSignatureModal] = useState(false)
+    // const [openSignatureModal, setOpenSignatureModal] = useState(false)
     const [applicationFile, setApplicationFile] = useState([
         { title: '', appImg: null },
     ])
@@ -55,13 +55,13 @@ const ApplicationCreateModal = ({
         setApplicationData(values => ({ ...values, [name]: value }))
     }
 
-    const signatureModalOpen = () => {
-        setOpenSignatureModal(true)
-    }
+    // const signatureModalOpen = () => {
+    //     setOpenSignatureModal(true)
+    // }
 
-    const signatureModalClose = () => {
-        setOpenSignatureModal(false)
-    }
+    // const signatureModalClose = () => {
+    //     setOpenSignatureModal(false)
+    // }
 
     const submit = (e) => {
         e.preventDefault()
@@ -298,9 +298,9 @@ const ApplicationCreateModal = ({
                 </div>
             </div>
 
-            {openSignatureModal && (
-                <SignatureModal signatureModalClose={signatureModalClose} />
-            )}
+            {/*{openSignatureModal && (*/}
+            {/*    <SignatureModal signatureModalClose={signatureModalClose} />*/}
+            {/*)}*/}
         </>
     )
 }
