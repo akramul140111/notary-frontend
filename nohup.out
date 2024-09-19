@@ -1,0 +1,77 @@
+
+> breeze-next@0.1.0 start
+> next start 5000
+
+ ⨯ Invalid project directory provided, no such directory: /var/www/html/notary-frontend/5000
+
+> breeze-next@0.1.0 start
+> next start 5000
+
+ ⨯ Invalid project directory provided, no such directory: /var/www/html/notary-frontend/5000
+
+> breeze-next@0.1.0 build
+> next build
+
+  ▲ Next.js 14.2.7
+  - Environments: .env.local
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+
+./src/app/(app)/services/[id]/page.js
+55:11  Warning: Unexpected console statement.  no-console
+
+./src/app/Loading.js
+13:13  Warning: Empty components are self-closing  react/self-closing-comp
+
+./src/components/Dashboard/DashboardCard.js
+26:29  Warning: Empty components are self-closing  react/self-closing-comp
+27:29  Warning: Empty components are self-closing  react/self-closing-comp
+
+./src/components/Profile/UpdateSignature.js
+38:13  Warning: Unexpected console statement.  no-console
+
+info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/basic-features/eslint#disabling-rules
+   Collecting page data ...
+   Generating static pages (0/12) ...
+   Generating static pages (3/12) 
+   Generating static pages (6/12) 
+   Generating static pages (9/12) 
+ ✓ Generating static pages (12/12)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                              Size     First Load JS
+┌ ○ /                                    149 B          87.3 kB
+├ ○ /_not-found                          149 B          87.3 kB
+├ ○ /applications                        1.1 kB          107 kB
+├ ○ /dashboard                           1.09 kB         100 kB
+├ ○ /forgot-password                     1.86 kB         101 kB
+├ ○ /login                               4.1 kB          108 kB
+├ ƒ /password-reset/[token]              1.86 kB         101 kB
+├ ○ /profile                             2.53 kB         107 kB
+├ ○ /register                            1.91 kB         108 kB
+├ ○ /services                            1.06 kB         102 kB
+├ ƒ /services/[id]                       1.48 kB         107 kB
+└ ○ /verify-email                        1.6 kB          101 kB
++ First Load JS shared by all            87.2 kB
+  ├ chunks/23-33565f7276f057dc.js        31.6 kB
+  ├ chunks/fd9d1056-026a043a74790eb1.js  53.6 kB
+  └ other shared chunks (total)          1.98 kB
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+
+> breeze-next@0.1.0 dev
+> next dev
+
+  ▲ Next.js 14.2.7
+  - Local:        http://localhost:3000
+  - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 1361ms
+[?25h

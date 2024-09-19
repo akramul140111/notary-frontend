@@ -3,8 +3,8 @@ module.exports = {
     remotePatterns: [
       {
         protocol: 'http',
-        hostname: 'notary-api.dev.mygov.bd',
-        // port: '8000',
+        hostname: 'notary-api.stage.mygov.bd',
+        port: '80',
       },
     ],
     formats: ['image/avif', 'image/webp'],
